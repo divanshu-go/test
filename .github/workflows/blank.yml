@@ -10,11 +10,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Clone ScreenPipe Repository
+        run: git clone https://github.com/mediar-ai/screenpipe
 
       - name: Install system dependencies
         run: |
@@ -61,10 +64,11 @@ jobs:
           bun-version: latest
 
       - name: Build ScreenPipe
+        working-directory: screenpipe
         run: cargo build --release
 
       - name: Build Desktop App
+        working-directory: screenpipe/screenpipe-app-tauri
         run: |
-          cd screenpipe-app-tauri
           bun install
           bun run tauri build
