@@ -1,0 +1,70 @@
+name: Build and Test ScreenPipe
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y \
+            g++ \
+            ffmpeg \
+            tesseract-ocr \
+            cmake \
+            libavformat-dev \
+            libavfilter-dev \
+            libavdevice-dev \
+            libssl-dev \
+            libtesseract-dev \
+            libxdo-dev \
+            libsdl2-dev \
+            libclang-dev \
+            libxtst-dev \
+            libx11-dev \
+            libxext-dev \
+            libxrandr-dev \
+            libxinerama-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libgl1-mesa-dev \
+            libasound2-dev \
+            libpulse-dev \
+            curl \
+            pkg-config \
+            libsqlite3-dev \
+            libbz2-dev \
+            zlib1g-dev \
+            libonig-dev \
+            libsamplerate-dev \
+            libwebrtc-audio-processing-dev
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Build ScreenPipe
+        run: cargo build --release
+
+      - name: Build Desktop App
+        run: |
+          cd screenpipe-app-tauri
+          bun install
+          bun run tauri build
