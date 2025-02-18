@@ -74,9 +74,9 @@ jobs:
           bun install
           bun run tauri build
     
-      - name: Upload finished bundle as artifact (even if previous steps fail)
-        uses: actions/upload-artifact@v2
+      - name: Upload finished AppImage as artifact (even if previous steps fail)
+        uses: actions/upload-artifact@v4
         with:
           name: screenpipe-bundle
-          path: /home/runner/work/test/test/screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/appimage/screenpipe
+          path: /home/runner/work/test/test/screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/appimage/screenpipe/development_0.34.4_amd64.AppImage
         if: always()
