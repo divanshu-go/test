@@ -52,6 +52,7 @@ jobs:
             libonig-dev \
             libayatana-appindicator3-dev \
             libsamplerate-dev \
+             intel-mkl \
             libwebrtc-audio-processing-dev
 
       - name: Set up Rust
@@ -66,7 +67,7 @@ jobs:
 
       - name: Build ScreenPipe
         working-directory: screenpipe
-        run: cargo build --release
+        run: cargo build --release --features mkl
 
       - name: Build Desktop App
         working-directory: screenpipe/screenpipe-app-tauri
