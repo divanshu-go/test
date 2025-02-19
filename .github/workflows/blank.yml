@@ -70,13 +70,16 @@ jobs:
 
       - name: Build Desktop App
         working-directory: screenpipe/screenpipe-app-tauri
+        continue-on-error: true
+        if: always() 
         run: |
           bun install
           bun run tauri build
     
       - name: Upload finished AppImage as artifact (even if previous steps fail)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.0
+        if: always() 
+        continue-on-error: true
         with:
           name: screenpipe-bundle
-          path: /home/runner/work/test/test/screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle
-          continue-on-error: true
+          path: screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/
