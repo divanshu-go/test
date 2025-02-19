@@ -67,7 +67,9 @@ jobs:
 
       - name: Build ScreenPipe
         working-directory: screenpipe
-        run: cargo build --release --features mkl
+        run: |
+          cargo update
+          cargo build --release --features mkl
 
       - name: Build Desktop App
         working-directory: screenpipe/screenpipe-app-tauri
