@@ -52,9 +52,7 @@ jobs:
             libonig-dev \
             libayatana-appindicator3-dev \
             libsamplerate-dev \
-             intel-mkl \
             libwebrtc-audio-processing-dev
-
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -67,9 +65,7 @@ jobs:
 
       - name: Build ScreenPipe
         working-directory: screenpipe
-        run: |
-          cargo update
-          cargo build --release --features mkl
+        run: cargo build --release
 
       - name: Build Desktop App
         working-directory: screenpipe/screenpipe-app-tauri
