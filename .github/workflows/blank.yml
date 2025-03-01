@@ -27,41 +27,30 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y \
-            g++ \
+            pkg-config \
             ffmpeg \
-            tesseract-ocr \
-            cmake \
+            libavcodec-dev \
             libavformat-dev \
-            libavfilter-dev \
-            libavdevice-dev \
-            libssl-dev \
+            libavutil-dev \
+            libswscale-dev \
+            libasound2-dev \
+            libdbus-1-dev \
+            libxcb1-dev \
+            libxcb-render0-dev \
+            libxcb-shape0-dev \
+            libxcb-xfixes0-dev \
             libtesseract-dev \
-            libxdo-dev \
-            libsdl2-dev \
-            libclang-dev \
-            libxtst-dev \
+            libssl-dev \
+            cmake \
+            build-essential \
             libx11-dev \
+            libxi-dev \
             libxext-dev \
+            libxtst-dev \
             libxrandr-dev \
             libxinerama-dev \
             libxcursor-dev \
-            libxi-dev \
-            libgl1-mesa-dev \
-            libasound2-dev \
-            libpulse-dev \
-            curl \
-            pkg-config \
-            libsqlite3-dev \
-            libbz2-dev \
-            zlib1g-dev \
-            libonig-dev \
-            libayatana-appindicator3-dev \
-            libsamplerate-dev \
-            libwebrtc-audio-processing-dev \
-            libgtk-3-dev \
-            libwebkit2gtk-4.1-dev \
-            librsvg2-dev \
-            patchelf
+            libxdo-dev
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
@@ -72,22 +61,3 @@ jobs:
       - name: Build ScreenPipe
         working-directory: screenpipe
         run: cargo build --release
-
-      - name: Build Desktop App
-        working-directory: screenpipe/screenpipe-app-tauri
-        continue-on-error: true
-        if: always() 
-        run: |
-          bun install
-          bun run tauri build
-    
-      - name: Upload finished AppImage as artifact (even if previous steps fail)
-        uses: actions/upload-artifact@v4.6.0
-        if: always() 
-        continue-on-error: true
-        with:
-          name: screenpipe-bundle
-          path: screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/
-
-      - name: System running...
-        uses: mxschmitt/action-tmate@v2
