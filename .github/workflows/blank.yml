@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-arm
 
     steps:
       - name: Checkout repository
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.43
+          bun-version: latest
 
       - name: Install system dependencies
         run: |
@@ -62,7 +62,6 @@ jobs:
             libwebkit2gtk-4.1-dev \
             librsvg2-dev \
             patchelf
-          curl -fsSL https://bun.sh/install | bash
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
