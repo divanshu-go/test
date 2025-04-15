@@ -26,6 +26,7 @@ jobs:
             ffmpeg \
             tesseract-ocr \
             cmake \
+            clang \
             libavformat-dev \
             libavfilter-dev \
             libavdevice-dev \
