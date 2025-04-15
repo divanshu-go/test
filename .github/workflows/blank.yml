@@ -100,4 +100,4 @@ jobs:
         continue-on-error: true
         with:
           name: screenpipe-bundle
-          path: screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/
+          path: screenpipe/screenpipe-app-tauri/src-tauri/target/release/bundle/appimage/*.AppImage
