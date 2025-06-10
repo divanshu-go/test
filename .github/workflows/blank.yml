@@ -1,4 +1,4 @@
-name: run win10
+name: run macos
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   debug:
-    runs-on: windows-2019
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setup tmate
