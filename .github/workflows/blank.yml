@@ -2,17 +2,25 @@ name: run macos
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  debug:
+  record:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup tmate
-      uses: mxschmitt/action-tmate@v3
+      - name: Install FFmpeg
+        run: brew install ffmpeg
+
+      - name: List AVFoundation Devices
+        run: ffmpeg -f avfoundation -list_devices true -i ""
+
+      - name: Record Screen (10s)
+        run: |
+          mkdir -p output
+          ffmpeg -f avfoundation -framerate 30 -video_size 1280x720 -i "1" -t 10 output/screen.mov
+
+      - name: Upload Recording
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen-recording
+          path: output/screen.mov
 
